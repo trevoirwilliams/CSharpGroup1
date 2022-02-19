@@ -3,6 +3,10 @@
 // Declare global variables for use.
 decimal salary = 0.0M;
 int numberOfDays = 0;
+DateTime employmentDate = DateTime.MinValue;
+
+string[] carsOwned = new string[] { };
+List<DateTime> dates = new List<DateTime>();
 
 // try..catch used to try an operation and handle any errors gracefully
 try
@@ -10,6 +14,13 @@ try
     // prompt for a value and store in variable
     Console.WriteLine("Enter Name: ");
     var name = Console.ReadLine();
+    ////PrintName();
+    ////name.Append('!');
+    ////name.Trim();
+    ////name.Trim('-');
+    ////name = name.Trim(new char[] { '*', '-', '/', ' ', '.' });
+    ////name.EndsWith('s');
+    ////name.Split('-');
 
     // Prompt for a value and store in an interger
     // This value needs to be converted in order to store in an int
@@ -21,6 +32,20 @@ try
     Console.WriteLine("Employed (true/false): ");
     bool employed = Convert.ToBoolean(Console.ReadLine());
 
+    Console.WriteLine("Enter The Number of Cars You Have Owned: ");
+    var numberOfCarsOwned = Convert.ToInt32(Console.ReadLine());
+
+    if (numberOfCarsOwned > 0)
+    {
+        carsOwned = new string[numberOfCarsOwned];
+
+        for (int i = 0; i < numberOfCarsOwned; i++)
+        {
+            Console.Write($"Enter The Type Car ({i + 1}): ");
+            carsOwned[i] = Console.ReadLine();
+        }
+    }
+
     // IF statement checking a boolean before taking action
     if (employed)
     {
@@ -29,6 +54,9 @@ try
 
         Console.WriteLine("Enter The Number of Days You Work: ");
         numberOfDays = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Enter The Date You Were Employed (yyyy-mm-dd): ");
+        employmentDate = Convert.ToDateTime(Console.ReadLine());
     }
 
     Console.WriteLine("Name: " + name);
@@ -46,8 +74,19 @@ try
         }
 
         // Potential divide by zero exception
-        var dailyRate = salary / numberOfDays;
+        var dailyRate = DailySalary();
         Console.WriteLine($"Your Daily Salary Rate is: {dailyRate}");
+        Console.WriteLine($"Your Employment Date: {employmentDate}");
+
+        for (int i = 0; i < numberOfCarsOwned; i++)
+        {
+            Console.WriteLine($"Car Owned: " + carsOwned[i]);
+        }
+
+        dates[0] = new DateTime();
+
+        dates.Add(new DateTime());
+        dates.Remove(new DateTime());
     }
 }
 catch (Exception ex) // ex is an object that will store the details of any exception that might get thrown
@@ -59,5 +98,23 @@ catch (Exception ex) // ex is an object that will store the details of any excep
     ////throw;
 }
 
+var timeStamp = DateTime.Now;
+
+Console.WriteLine($"Time of processing: {timeStamp}");
+Console.WriteLine($"UTC Time of processing: {DateTime.UtcNow}");
+Console.WriteLine($"Come back in two days: {timeStamp.AddDays(2)}");
+Console.WriteLine($"It is the {timeStamp.DayOfYear}th day of the year");
 
 Console.WriteLine("Thank you for your information!");
+
+
+
+void PrintName()
+{
+    Console.WriteLine("I AM The PrintName Method!!");
+}
+
+decimal DailySalary()
+{
+    return salary / numberOfDays;
+}
